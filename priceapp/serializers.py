@@ -11,13 +11,13 @@ class PricingPlanOptionSerializer(serializers.ModelSerializer):
         model=PricingPlanOption
         fields='__all__'
 
-class PricingDelhiSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=PricingPlan
-        fields=('location','planname')
+# class PricingDelhiSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=PricingPlan
+#         fields=('location','planname')
 
-class PricingHyderabadSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=PricingPlanOption
-        fields=('price',)        
+# class PricingHyderabadSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=PricingPlanOption
+#         fields=('price',)        
 

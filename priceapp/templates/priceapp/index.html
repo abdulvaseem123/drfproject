@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pricing Table</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Pricing Table</h2>
+  <p>Type any table content</p>  
+  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <br>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Plan Name</th>
+        <th>Plan Formula</th>
+        <th>Location</th>
+        <th>Plan Status</th>
+        <th>Created Date</th>
+        <th>Updated Date</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+        
+        {%for user in all_users  %}
+        
+      <tr>
+          <td>{{user.id}}</td>
+          <td>{{user.planname}}</td>
+        <td>{{user.planformula}}</td>
+        <td>{{user.location}}</td>
+        <td>{{user.planstatus}}</td>
+        <td>{{user.createdate}}</td>
+        <td>{{user.updatedate}}</td>
+        {% endfor %}
+      </tr>
+      
+      
+    </tbody>
+  </table>
+  
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+</body>
+</html>

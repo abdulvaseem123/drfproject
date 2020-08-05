@@ -14,14 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from rest_framework.urlpatterns import format_suffix_patterns
 from priceapp import views
+from rest_framework import routers
+router=routers.DefaultRouter()
+router.register('api',views.PricingPlanList)
+router.register('apioption',views.PricingPlanOptionList)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('price/', views.PricingPlanList.as_view()),
-    path('priceoption/', views.PricingPlanOptionList.as_view()),
-    path('price/delhi',views.PricingDelhiList.as_view()),
-    path('price/hyderabad',views.PricingHyderabadList.as_view()),
+    path('', include(router.urls)),
+    path('dashboard/', include('priceapp.urls')),
+    #path('api/', views.PricingPlanList.as_view()),
+    # path('priceoption/', views.PricingPlanOptionList.as_view()),
+    # path('price/delhi',views.PricingDelhiList.as_view()),
+    # path('price/hyderabad',views.PricingHyderabadList.as_view()),
 ]
