@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -32,6 +33,7 @@ def index(request):
     # print(price_list)     
     context={'all_users':all_users,'price_list':price_list}
     return render(request,'priceapp/index.html',context)        
+    #return render(request,'/src/index.html')
 # class PricingPlanList(APIView):
 #     def get(self,request):
 #         PricingPlan_obj=PricingPlan.objects.all()
