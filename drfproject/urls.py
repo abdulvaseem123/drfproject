@@ -27,6 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('dashboard/', include('priceapp.urls')),
+    # path('dashboard/new', include('priceapp.urls')),
+    # path('dashboard/new/<int:pk>/update/', include('priceapp.urls')),
     #path('api/', views.PricingPlanList.as_view()),
     # path('priceoption/', views.PricingPlanOptionList.as_view()),
     # path('price/delhi',views.PricingDelhiList.as_view()),

@@ -1,3 +1,7 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import PricingPlanForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -19,6 +23,19 @@ class PricingPlanOptionList(ModelViewSet):
     queryset=PricingPlanOption.objects.all()
     serializer_class=PricingPlanOptionSerializer
 
+class PricingPlanCreateView(CreateView):
+    model = PricingPlan
+    fields='__all__'
+
+class PricingPlanUpdateView(UpdateView):
+    model = PricingPlan
+    fields='__all__'
+    
+
+class PricingPlanDeleteView(DeleteView):
+    model = PricingPlan
+    success_url = '/dashboard'       
+        
 
 def index(request):
     all_users=PricingPlan.objects.all()
@@ -72,4 +89,29 @@ def index(request):
 #     def post(self,request):
 #         pass     
 
+
+def create(request):
+    if request.method == 'POST':
+        form = PricingPlanForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    form = PricingPlanForm()
+
+    return render(request,'priceapp/create.html',{'form': form})
+
+def edit(request, pk, template_name='priceapp/edit.html'):
+    contact = get_object_or_404(PricingPlan, pk=pk)
+    form = PricingPlanForm(request.POST or None, instance=post)
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+    return render(request, template_name, {'form':form})
+
+def delete(request, pk, template_name='priceapp/confirm_delete.html'):
+    contact = get_object_or_404(PricingPlan, pk=pk)
+    if request.method=='POST':
+        contact.delete()
+        return redirect('index')
+    return render(request, template_name, {'object':contact})
 

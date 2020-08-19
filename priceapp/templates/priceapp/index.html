@@ -1,21 +1,26 @@
-<!-- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Pricing Table</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
 </head>
 <body>
 
 <div class="container">
-  <h2>Pricing Table</h2>
-  <p>Type any table content</p>  
-  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <h2>Pricing Tablesfafasff</h2>
+    
+  <button onclick="location.href= '{% url 'create_form' %}'">Add Plan</button><div>
+    <h1>ADDDDDDD</h1>
+  </div>
   <br>
-  <table class="table table-bordered table-striped">
+  <table  class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>ID</th>
@@ -25,12 +30,13 @@
         <th>Plan Status</th>
         <th>Created Date</th>
         <th>Updated Date</th>
+        <th>Action</th>
       </tr>
     </thead>
-    <tbody id="myTable">
+    <tbody  id="myTable">
         
-        {%for user in all_users  %}
         
+        {% for user in all_users%}
       <tr>
           <td>{{user.id}}</td>
           <td>{{user.planname}}</td>
@@ -39,7 +45,8 @@
         <td>{{user.planstatus}}</td>
         <td>{{user.createdate}}</td>
         <td>{{user.updatedate}}</td>
-        {% endfor %}
+        <td><button onclick="location.href= '{% url 'update' user.id %}'">Edit</button>&nbsp;&nbsp;<button onclick="location.href= '{% url 'delete' user.id %}'">Delete</button></td>
+        {% endfor%}
       </tr>
       
       
@@ -48,38 +55,7 @@
   
 </div>
 
-<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
+
 
 </body>
-</html> -->
-
-{% load static %}
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Home</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-      <!-- index.html -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-  <app-root>Loading...</app-root>
-<script type="text/javascript" src="{% static 'es2015-polyfills.js' %}"></script>
-<script type="text/javascript" src="{% static 'polyfills.js' %}"></script>
-<script type="text/javascript" src="{% static 'styles.js' %}"></script>
-<script type="text/javascript" src="{% static 'vendor.js' %}"></script>
-  <script type="text/javascript" src="{% static 'runtime.js' %}"></script>
-<script type="text/javascript" src="{% static 'main.js' %}"></script></body>
 </html>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class PricingPlan(models.Model):
     planname=models.CharField(max_length=45)
@@ -8,6 +9,9 @@ class PricingPlan(models.Model):
     planstatus=models.CharField(max_length=1)
     createdate=models.DateField(auto_now=True)
     updatedate=models.DateField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse('index')
 
     def __str__(self):
         return self.planname
