@@ -1,76 +1,3 @@
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Pricing Table</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  
-</head>
-<body>
-
-<div class="container">
-  <h2>Pricing Tables</h2>
-    
-  <button onclick="location.href= '{% url 'create_form' %}'">Add Plan</button><div>
-  </div>
-  <br>
-  <table  class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Plan Name</th>
-        <th>Plan Formula</th>
-        <th>Location</th>
-        <th>Plan Status</th>
-        <th>Created Date</th>
-        <th>Updated Date</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody  id="myTable">
-        
-        
-        {% for user in all_users%}
-      <tr>
-          <td>{{user.id}}</td>
-          <td>{{user.planname}}</td>
-        <td>{{user.planformula}}</td>
-        <td>{{user.location}}</td>
-        <td>{{user.planstatus}}</td>
-        <td>{{user.createdate}}</td>
-        <td>{{user.updatedate}}</td>
-        <td>
-          <button onclick="location.href= '{% url 'update' user.id %}'">Edit</button>&nbsp;&nbsp;<button onclick="location.href= '{% url 'delete' user.id %}'">Delete</button> 
-          <a href="{% url 'update' user.id %}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deletePricingModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-        </td>
-        {% endfor%}
-      </tr>
-      
-      
-    </tbody>
-  </table>
-  
-</div>
-
-
-
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -308,37 +235,27 @@
  } 
 </style>
 <script type="text/javascript">
-$(document).ready(function()
-{
- // Activate tooltip
- $('[data-toggle="tooltip"]').tooltip();
- 
- // Select/Deselect checkboxes
- var checkbox = $('table tbody input[type="checkbox"]');
- $("#selectAll").click(function()
- {
-  if(this.checked){
-   checkbox.each(function()
-   {
-    this.checked = true;                        
-   });
-  }
-  else
-  {
-   checkbox.each(function()
-   {
-    this.checked = false;                        
-   });
-  } 
- });
- checkbox.click(function()
- {
-  if(!this.checked)
-  {
-   $("#selectAll").prop("checked", false);
-  }
- });
-});
+
+function edit(e){
+        var dataURL = e.getAttribute('data-href');
+        $('.editmodal').load(dataURL,function(){
+          $('#editModal').modal({show:true});   
+        });
+    }
+
+    function addmodel(e){
+        var dataURL = e.getAttribute('data-href');
+        $('.addmodal').load(dataURL,function(){
+          $('#addModal').modal({show:true});   
+        });
+    }
+
+    function deletemodal(e){
+        var dataURL = e.getAttribute('data-href');
+        $('.deletemodal').load(dataURL,function(){
+          $('#deleteModal').modal({show:true});   
+        });
+    }   
 </script>
 </head>
 <body>
@@ -350,7 +267,9 @@ $(document).ready(function()
       <h2>Pricing <b>Tables</b></h2>
      </div>
      <div class="col-sm-6">
-      <a href="#addPricingModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Pricing</span></a>
+      <!-- <a href="#addPricingModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Pricing</span></a> -->
+      <a href="" data-href="new/" onclick="addmodel(this);" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Pricing</span></a> 
+
           
      </div>
                 </div>
@@ -382,47 +301,9 @@ $(document).ready(function()
                   <td>{{user.updatedate}}</td>
                   <td>
                     <!--<button onclick="location.href= '{% url 'update' user.id %}'">Edit</button>&nbsp;&nbsp;<button onclick="location.href= '{% url 'delete' user.id %}'">Delete</button> -->
-                    <a href="#editPricingModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                      <a href="#deletePricingModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                    <a href="" data-href="{{user.id}}/update" onclick="edit(this);" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                    <a href="" data-href="{{user.id}}/delete" onclick="deletemodal(this);" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                   </td>
-                  <div id="editPricingModal" class="modal fade">
-                    <div class="modal-dialog">
-                     <div class="modal-content">
-                      <form>
-                       <div class="modal-header">      
-                        <h4 class="modal-title">Edit Price Table</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                       </div>
-                       <div class="modal-body">     
-                        <div class="form-group">
-                         <label>Planname</label>
-                         <input type="text" class="form-control" value={{user.id}} required>
-                        </div>
-                        <div class="form-group">
-                         <label>Description</label>
-                         <input type="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                         <label>Planformula</label>
-                         <textarea class="form-control" required></textarea>
-                        </div>
-                        <div class="form-group">
-                         <label>Location</label>
-                         <input type="text" class="form-control" required>
-                        </div>  
-                        <div class="form-group">
-                          <label>Planstatus</label>
-                          <input type="text" class="form-control" required>
-                         </div>     
-                       </div>
-                       <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-success" value="Add">
-                       </div>
-                      </form>
-                     </div>
-                    </div>
-                   </div>
                   {% endfor%}
                 </tr>
                 
@@ -449,7 +330,24 @@ $(document).ready(function()
         </div>
     </div>
  <!-- ADD Modal HTML -->
- <div id="addPricingModal" class="modal fade">
+ <div class="modal fade" id="addModal" role="dialog">
+  <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add Pricing Plan</h4>
+          </div>
+          <div class="modal-body addmodal">
+
+          </div>
+          
+      </div>
+    
+  </div>
+</div>
+ <!-- <div id="addPricingModal" class="modal fade">
   <div class="modal-dialog">
    <div class="modal-content">
     <form>
@@ -486,13 +384,29 @@ $(document).ready(function()
     </form>
    </div>
   </div>
- </div>
+ </div> -->
  <!-- Edit Modal HTML -->
  
- 
+ <div class="modal fade" id="editModal" role="dialog">
+  <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add Pricing Plan</h4>
+          </div>
+          <div class="modal-body editmodal">
+
+          </div>
+          
+      </div>
+    
+  </div>
+</div>
  
  <!-- Delete Modal HTML -->
- <div id="deletePricingModal" class="modal fade">
+ <div id="deleteModal" class="modal fade">
   <div class="modal-dialog">
    <div class="modal-content">
     <form>
@@ -500,14 +414,10 @@ $(document).ready(function()
       <h4 class="modal-title">Delete Pricing</h4>
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
      </div>
-     <div class="modal-body">     
-      <p>Are you sure you want to delete these Records?</p>
-      <p class="text-warning"><small>This action cannot be undone.</small></p>
+     <div class="modal-body deletemodal">     
+      
      </div>
-     <div class="modal-footer">
-      <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-      <input type="submit" class="btn btn-danger" value="Delete">
-     </div>
+     
     </form>
    </div>
   </div>

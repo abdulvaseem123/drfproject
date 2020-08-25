@@ -30,7 +30,9 @@ class PricingPlanCreateView(CreateView):
 class PricingPlanUpdateView(UpdateView):
     model = PricingPlan
     fields='__all__'
+    all_users=PricingPlan.objects.all()
     
+        
 
 class PricingPlanDeleteView(DeleteView):
     model = PricingPlan
